@@ -31,7 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     javascript
+     yaml
      yaml
      python
      ;; ----------------------------------------------------------------
@@ -40,8 +40,8 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
-     auto-completion
-     better-defaults
+     ;; auto-completion
+     ;; better-defaults
      emacs-lisp
      ;; git
      markdown
@@ -52,10 +52,8 @@ values."
      spell-checking
      syntax-checking
      ;; version-control
-     themes-megapack
      supercollider
-     ;; company-mode
-     )
+     ) 
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
@@ -315,7 +313,6 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; (global-company-mode t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -325,43 +322,40 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(blink-cursor-mode nil)
- '(column-number-mode t)
  '(custom-safe-themes
    (quote
-    ("7f5837a7dbf54c2b7c41d94f5eb1373cf63274847d1971037faa24d7f2231eea" "39dd7106e6387e0c45dfce8ed44351078f6acd29a345d8b22e7b8e54ac25bac4" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbvbef4328" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "3a69621a68c2d3550a4c777ffc000e1ea66f5bc2f61112814c591e1bda3f5704" "f2057733672d3b119791f5b7d1a778bf8880121f22ea122a21d221b45081f49e" "5673c365c8679addfb44f3d91d6b880c3266766b605c99f2d9b00745202e75f6" "f23a961abba42fc5d75bf94c46b5688c52683c02b3a81313dd0738b4d48afd1d" "1bd383f15ee7345c270b82c5e41554754b2a56e14c2ddaa2127c3590d0303b95" "f64c9f8b4241b680b186f4620afb9c82fa2a76cf4498a7431f90db59bb1892eb" "3632cf223c62cb7da121be0ed641a2243f7ec0130178722554e613c9ab3131de" "4af6fad34321a1ce23d8ab3486c662de122e8c6c1de97baed3aa4c10fe55e060" "d8f76414f8f2dcb045a37eb155bfaa2e1d17b6573ed43fb1d18b936febc7bbc2" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "19ba41b6dc0b5dd34e1b8628ad7ae47deb19f968fe8c31853d64ea8c4df252b8" "868f73b5cf78e72ca2402e1d48675e49cc9a9619c5544af7bf216515d22b58e7" "5acb6002127f5d212e2d31ba2ab5503df9cd1baa1200fbb5f57cc49f6da3056d" "cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
+    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
  '(evil-want-Y-yank-to-eol nil)
- '(global-auto-complete-mode t)
- '(global-highlight-parentheses-mode t)
  '(org-agenda-files
    (quote
-    ("~/Dropbox/org/todo.org" "~/Dropbox/org/NS.org" "~/Dropbox/org/SAT.org")))
- '(org-bullets-bullet-list (quote ("*" "*" "*" "*")))
+    ("~/Dropbox/org/condo.org" "~/Dropbox/org/remember.org" "~/Dropbox/org/NS.org" "~/Dropbox/org/Totem.org" "~/Dropbox/org/todo.org" "~/Dropbox/org/capture.org" "~/Dropbox/org/SAT.org")))
  '(org-capture-templates
    (quote
     (("t" "Add to todo list" entry
       (file "~/Dropbox/org/todo.org")
       "* %^{Title} %^G
 Source: %u, %x" :jump-to-captured t :empty-lines 1))))
- '(org-directory "~/Dropbox/org")
- '(org-export-backends
-   (quote
-    (ascii html icalendar latex md odt confluence freemind koma-letter)))
- '(org-mobile-directory "~/Dropbox/MobileOrg")
- '(org-mobile-inbox-for-pull "~/Dropbox/org/flagged.org")
- '(package-selected-packages
+  '(package-selected-packages
    (quote
     (scheme-complete chicken-scheme web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode yaml-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic unfill mwim w3m zonokai-theme zenburn-theme zen-and-art-theme ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme restart-emacs request rainbow-delimiters railscasts-theme purple-haze-theme professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pastels-on-dark-theme paradox organic-green-theme org-projectile org-present org-pomodoro org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme neotree naquadah-theme mustang-theme move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme madhat2r-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gh-md gandalf-theme fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido flatui-theme flatland-theme firebelly-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme elisp-slime-nav dumb-jump dracula-theme django-theme define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-statistics column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
- '(tool-bar-mode nil)
- '(w3m-use-cookies t))
+ '(org-babel-load-languages
+   (quote
+    ((python . t)
+     (emacs-lisp . t)
+     (dot . t)
+     (ditaa . t)
+     (lilypond . t)
+     (shell . t))))
+ '(org-bullets-bullet-list (quote ("*" "*" "*" "*")))
+ '(org-file-apps
+   (quote
+    ((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.pdf\\'" . "xreader %s")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Ubuntu Mono" :foundry "DAMA" :slant normal :weight normal :height 98 :width normal))))
- '(org-agenda-date ((t (:inherit org-agenda-structure :foreground "#7590db" :height 1.0))))
- '(org-level-1 ((t (:inherit outline-1 :foreground "dark gray" :box nil))))
- '(org-level-2 ((t (:inherit outline-2 :box nil))))
- '(org-level-3 ((t (:inherit outline-3 :box nil :weight normal))))
- '(org-level-4 ((t (:inherit outline-4 :box nil :weight normal)))))
+ )
