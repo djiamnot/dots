@@ -1,0 +1,13 @@
+#!/bin/bash
+
+T_STATE=$(synclient -l | grep TouchpadOff | awk -F '=' '{print $2}')
+
+if [[ "${T_STATE}" -eq 0 ]]; then
+    synclient TouchpadOff=1
+    OUTPUT="⭓"
+else
+    synclient TouchpadOff=0
+    OUTPUT="⭔"
+fi
+
+echo ${OUTPUT}
