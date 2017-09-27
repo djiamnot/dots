@@ -255,6 +255,8 @@ assign [class="Hdspmixer"] 6:Jack
 
 for_window [class="SuperCollider"] floating enable, move container to workspace 7
 
+for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 9 px
+
 #
 # Keyboard layout and behavior
 # exec --no-startup-id "setxkbmap -layout pl,ca -option ctrl:nocaps -option compose:ralt"
@@ -296,3 +298,4 @@ exec --no-startup-id slack
 exec --no-startup-id emacs
 exec --no-startup-id qjackctl
 # exec --no-startup-id hdspmixer
+exec --no-startup-id "syncthing -no-broswer"
