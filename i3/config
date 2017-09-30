@@ -280,6 +280,8 @@ exec --no-startup-id "nm-applet"
 exec --no-startup-id "dropbox start"
 # Compton
 exec --no-startup-id "compton --config ~/.config/compton.conf -b"
+# blueman
+exec --no-startup-id "blueman applet"
 # Disable Nautilus and Nemo desktop
 exec_always --no-startup-id "gsettings set org.gnome.desktop.background show-desktop-icons false"
 exec_always --no-startup-id "gsettings set org.nemo.desktop show-desktop-icons false"
