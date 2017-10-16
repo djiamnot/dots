@@ -13,7 +13,8 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 10
+# font pango:monospace 10
+font pango:FontAwesome 9
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -211,7 +212,7 @@ mode "$mode_system" {
     bindsym s exec --no-startup-id $locker && systemctl suspend, mode "default"
     bindsym h exec --no-startup-id $locker && systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -263,7 +264,7 @@ for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move d
 exec --no-startup-id "setxkbmap -layout pl,ca\(multix\) -option ctrl:nocaps grp:rctrl_toggle"
 exec --no-startup-id "xset r rate 250 40"
 # Set monitor color profile
-exec --no-startup-id "xiccd"
+# exec --no-startup-id "xiccd"
 # Change resolution
 # exec "xrandr --output eDP1 --mode 2048x1152"
 # For keyboard layout handling
@@ -281,12 +282,12 @@ exec --no-startup-id "dropbox start"
 # Compton
 exec --no-startup-id "compton --config ~/.config/compton.conf -b"
 # blueman
-exec --no-startup-id "blueman applet"
+# exec --no-startup-id "blueman-applet"
 # Disable Nautilus and Nemo desktop
 exec_always --no-startup-id "gsettings set org.gnome.desktop.background show-desktop-icons false"
 exec_always --no-startup-id "gsettings set org.nemo.desktop show-desktop-icons false"
 # Disable touch screen
-exec_always --no-startup-id "xinput disable `xinput list | egrep \"Atmel.*id=[0-9]*\" | egrep -o \"=[0-9]*\" | egrep -o \"[0-9]*\"`"
+# exec_always --no-startup-id "xinput disable `xinput list | egrep \"Atmel.*id=[0-9]*\" | egrep -o \"=[0-9]*\" | egrep -o \"[0-9]*\"`"
 # Autolock
 exec --no-startup-id "xscreensaver"
 # No sleep when fullscreen
@@ -300,4 +301,4 @@ exec --no-startup-id slack
 exec --no-startup-id emacs
 exec --no-startup-id qjackctl
 # exec --no-startup-id hdspmixer
-exec --no-startup-id "syncthing -no-broswer"
+exec --no-startup-id "syncthing -no-browser"
