@@ -318,6 +318,22 @@ you should place your code here."
   (epa-file-enable)
   (require 'org-crypt)
   (org-crypt-use-before-save-magic)
+
+  (defun fontify-frame (frame)
+    (interactive)
+    (if window-system
+        (progn
+          (if (> (x-display-pixel-width) 2000)
+              (set-frame-parameter frame 'font "Inconsolata 10") ;; Cinema Display
+            (set-frame-parameter frame 'font "Inconsolata 8")))))
+
+
+  ;; Fontify current frame
+  (fontify-frame nil)
+
+  ;; Fontify any future frames
+  (push 'fontify-frame after-make-frame-functions)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
