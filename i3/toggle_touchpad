@@ -3,11 +3,9 @@
 T_STATE=$(synclient -l | grep TouchpadOff | awk -F '=' '{print $2}')
 
 if [[ "${T_STATE}" -eq 0 ]]; then
-    # synclient TouchpadOff=1
-    OUTPUT="⭓"
+    synclient TouchpadOff=1;
+    notify-send "Trackpad off";
 else
-    # synclient TouchpadOff=0
-    OUTPUT="⭔"
+    synclient TouchpadOff=0;
+    notify-send "Trackpad on"
 fi
-
-echo ${OUTPUT}
