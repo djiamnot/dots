@@ -326,7 +326,7 @@ you should place your code here."
         (progn
           (if (> (x-display-pixel-width) 2000)
               (set-frame-parameter frame 'font "Inconsolata 10") ;; Cinema Display
-            (set-frame-parameter frame 'font "Inconsolata 8")))))
+            (set-frame-parameter frame 'font "Inconsolata 10")))))
 
 
   ;; Fontify current frame
