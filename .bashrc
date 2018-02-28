@@ -152,3 +152,8 @@ toggle_touchpad_mediakeys(){
 
     # if test $(synclient -l | grep TouchpadOff | awk -F '=' '{print $2}') -eq 0; then synclient TouchpadOff=1; else synclient TouchpadOff=0; fi
 }
+
+
+ if [ -d "$HOME/adb-fastboot/platform-tools" ] ; then
+	 export PATH="$HOME/adb-fastboot/platform-tools:$PATH"
+ fi
