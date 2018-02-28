@@ -320,6 +320,9 @@ you should place your code here."
   (epa-file-enable)
   (require 'org-crypt)
   (org-crypt-use-before-save-magic)
+  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+
+
 
   (defun fontify-frame (frame)
     (interactive)
@@ -327,7 +330,7 @@ you should place your code here."
         (progn
           (if (> (x-display-pixel-width) 2000)
               (set-frame-parameter frame 'font "Inconsolata 10") ;; Cinema Display
-            (set-frame-parameter frame 'font "Inconsolata 8")))))
+            (set-frame-parameter frame 'font "Inconsolata 10")))))
 
 
   ;; Fontify current frame
@@ -351,7 +354,7 @@ you should place your code here."
  '(evil-want-Y-yank-to-eol nil)
  '(org-agenda-files
    (quote
-    ("~/Dropbox/org/condo.org" "~/Dropbox/org/remember.org" "~/Dropbox/org/NS.org" "~/Dropbox/org/Totem.org" "~/Dropbox/org/todo.org" "~/Dropbox/org/capture.org" "~/Dropbox/org/SAT.org")))
+    ("~/org/test.org" "~/org/MatraLab.org" "~/src/_art/MissinCommand/doc/MissinCommand.org" "~/org/condo.org" "~/org/remember.org" "~/org/NS.org" "~/org/Totem.org" "~/org/todo.org" "~/org/capture.org" "~/org/SAT.org")))
  '(org-babel-load-languages
    (quote
     ((python . t)
@@ -364,20 +367,20 @@ you should place your code here."
  '(org-capture-templates
    (quote
     (("t" "Add to todo list" entry
-      (file "~/Dropbox/org/todo.org")
+      (file "~/org/todo.org")
       "* %^{Title} %^G
 Source: %u, %x" :jump-to-captured t :empty-lines 1)
      ("c" "Capture note" entry
-      (file "~/Dropbox/org/todo.org")
+      (file "~/org/todo.org")
       "* %^{Title}
 Source: %u, %x" :jump-to-captured t :empty-lines 1)
      ("b" "Save a bookmark" entry
-      (file "~/Dropbox/org/bookmarks.org")
+      (file "~/org/bookmarks.org")
       "* %^{Title} %^G
 
 Source: %u, %c, %x ")
      ("a" "Clocked entry" entry
-      (file+headline "~/Dropbox/org/todo.org" "")
+      (file+headline "~/org/todo.org" "")
       "* %^{Title}
 
 Source: %u, %c, %x" :immediate-finish t :empty-lines 1 :clock-in t :clock-keep t :clock-resume t))))
