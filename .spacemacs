@@ -359,6 +359,8 @@ you should place your code here."
   (add-hook 'python-mode-hook 'flycheck-mode)
   (add-to-list 'flycheck-disabled-checkers 'python-flake8)
   (add-to-list 'flycheck-disabled-checkers 'python-pylint)
+  ;;
+  (setq default-frame-alist '((font . "Inconsolata 10")))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
