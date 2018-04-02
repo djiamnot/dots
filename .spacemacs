@@ -339,6 +339,9 @@ you should place your code here."
   ;; Fontify any future frames
   (push 'fontify-frame after-make-frame-functions)
 
+  ;;
+  (setq default-frame-alist '((font . "Inconsolata 10")))
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
