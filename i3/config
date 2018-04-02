@@ -33,6 +33,9 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
+# start emacsclient frame
+bindsym $mod+Shift+Return exec "emacsclient -c"
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -198,6 +201,10 @@ client.urgent           #FF5E00 #FF5E00 #fdf6e3 #FF5E00
 
 set $wallpaper ~/.config/i3/wallpaper.jpg
 
+# Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
 
 new_window normal 1
 new_float normal
@@ -307,7 +314,7 @@ exec "ssh-add"
 # some other things
 
 exec --no-startup-id slack
-exec --no-startup-id emacs
+exec --no-startup-id "emacs --daemon && notify-send 'emacs daemon started'"
 exec --no-startup-id qjackctl
 # exec --no-startup-id hdspmixer
 exec --no-startup-id "syncthing -no-browser"
