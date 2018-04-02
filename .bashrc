@@ -157,3 +157,7 @@ toggle_touchpad_mediakeys(){
  if [ -d "$HOME/adb-fastboot/platform-tools" ] ; then
 	 export PATH="$HOME/adb-fastboot/platform-tools:$PATH"
  fi
+source <(kubectl completion bash)
+
+alias em="emacsclient -c"
+. "/home/mis/.acme.sh/acme.sh.env"
