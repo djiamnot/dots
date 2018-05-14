@@ -621,14 +621,14 @@ autorun = true
 autorunApps =
   {
     "nm-applet",
-    "dropbox start"
+    "dropbox start",
     "setxkbmap -layout pl,ca(multix) -option ctrl:nocaps grp:rctrl_toggle",
     "slack",
     "qjackctl",
     "syncthing --no-browser",
     "megasync",
     "ssh-add",
-    "xscreensaver"
+    "xscreensaver",
 }
 if autorun then
    for app = 1, #autorunApps do
