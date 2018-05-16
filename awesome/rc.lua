@@ -54,6 +54,9 @@ terminal = "x-terminal-emulator"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
+-- This is used later as the default terminal and editor to run.
+emacsclient = "emacsclient -c"
+
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -325,11 +328,15 @@ globalkeys = gears.table.join(
             end
         end,
         {description = "go back", group = "client"}),
+    -- keyboard layout switcher
+    awful.key({ modkey,           }, "a", function () mykeyboardlayout.next_layout()    end,
+      {description = "next keyboard layout", group = "client"}),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey, "Control" }, "r", awesome.restart,
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn(emacsclient) end,
+      {description = "open a terminal", group = "launcher"}),    awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
@@ -625,6 +632,7 @@ autorunApps =
     "qjackctl",
     "syncthing --no-browser",
     "megasync",
+    "emacs --daemon"
 }
 if autorun then
    for app = 1, #autorunApps do
