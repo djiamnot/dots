@@ -632,7 +632,10 @@ autorunApps =
     "qjackctl",
     "syncthing --no-browser",
     "megasync",
-    "emacs --daemon"
+    "emacs --daemon",
+    "ssh-askapss",
+    "nm-applet",
+    "dropbox start"
 }
 if autorun then
    for app = 1, #autorunApps do
