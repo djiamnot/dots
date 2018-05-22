@@ -63,6 +63,9 @@ rofi = "rofi -font 'FontAwesome 9' -combi-modi run,drun -show combi -modi combi 
 -- close session
 session_off = "zenity --height=300 --list --radiolist --text \"would you like to log out?\" --column \"\" --column \"Action:\" FALSE \"Lock\" TRUE \"Log out\" FALSE \"Restart\" FALSE \"Shut down\" FALSE \"Suspend\" FALSE \"Hibernate\""
 
+-- lock screen
+lock_command = "xscreensaver-command -lock"
+
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -397,9 +400,15 @@ globalkeys = gears.table.join(
       {description = "show the menubar", group = "launcher"}),
 
     -- close session
-    awful.key({ modkey }, "Pause", function()
+    awful.key({ modkey,            }, "Pause", function()
         awful.spawn(session_off) end,
-      {description = "close sessions, how?", group = "launcher"})
+      {description = "close sessions, how?", group = "launcher"}),
+
+    -- lock screen
+    awful.key({ modkey,  "Control"}, "l", function()
+        awful.spawn(lock_command) end,
+      {description = "Lock screen", group = "session control"}
+    )
 )
 
 clientkeys = gears.table.join(
