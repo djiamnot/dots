@@ -57,6 +57,12 @@ editor_cmd = terminal .. " -e " .. editor
 -- This is used later as the default terminal and editor to run.
 emacsclient = "emacsclient -c"
 
+-- rofi command
+rofi = "rofi -font 'FontAwesome 9' -combi-modi run,drun -show combi -modi combi -disable-history -separator-style solid -opacity 95"
+
+-- close session
+session_off = "zenity --height=300 --list --radiolist --text \"would you like to log out?\" --column \"\" --column \"Action:\" FALSE \"Lock\" TRUE \"Log out\" FALSE \"Restart\" FALSE \"Shut down\" FALSE \"Suspend\" FALSE \"Hibernate\""
+
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -372,6 +378,9 @@ globalkeys = gears.table.join(
     -- Prompt
     awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
               {description = "run prompt", group = "launcher"}),
+    -- rofi
+    awful.key({ modkey },            "d",     function () awful.spawn(rofi) end,
+      {description = "run rofi", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()
@@ -385,7 +394,12 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+      {description = "show the menubar", group = "launcher"}),
+
+    -- close session
+    awful.key({ modkey }, "Pause", function()
+        awful.spawn(session_off) end,
+      {description = "close sessions, how?", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
