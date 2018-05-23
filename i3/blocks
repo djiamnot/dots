@@ -121,12 +121,12 @@ label=
 interval=60
 color=#b2b2b2
 
-# [brightness]
-# label=
-# command=${HOME}/.config/i3/other-blocks/brightness
-# interval=5
-# min_width= 100%
-# signal=5
+[brightness]
+label=
+command=${HOME}/.config/i3/other-blocks/brightness
+interval=5
+min_width= 100%
+signal=5
 
 [cpu]
 label=
