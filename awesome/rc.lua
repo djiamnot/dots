@@ -20,6 +20,7 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 -- cpu widget
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -274,6 +275,7 @@ awful.screen.connect_for_each_screen(function(s)
       s.mytasklist, -- Middle widget
       { -- Right widgets
         layout = wibox.layout.fixed.horizontal,
+	battery_widget,
         cpu_widget,
         mykeyboardlayout,
         wibox.widget.systray(),
