@@ -327,7 +327,11 @@ you should place your code here."
   (org-crypt-use-before-save-magic)
   (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 
-
+  ;; godot configuration
+  g(add-to-list 'load-path "~/.emacs.d/private/godot-gdscript.el")
+  (load-file "~/.emacs.d/private/godot-gdscript.el/godot-gdscript.el")
+  (require 'godot-gdscript)
+  (add-to-list 'auto-mode-alist '("\\.gd\\'" . godot-gdscript-mode))
 
   (defun fontify-frame (frame)
     (interactive)
