@@ -296,7 +296,7 @@ exec --no-startup-id "nm-applet"
 # Dropbox
 exec --no-startup-id "dropbox start"
 # Compton
-exec --no-startup-id "compton --config ~/.config/compton.conf -b"
+# exec --no-startup-id "compton --config ~/.config/compton.conf -b"
 # blueman
 # exec --no-startup-id "blueman-applet"
 # Disable Nautilus and Nemo desktop
