@@ -4,3 +4,6 @@
 [submodule "spacemacs/.emacs.d/private/supercollider"]
 	path = spacemacs/.emacs.d/private/supercollider
 	url = https://github.com/djiamnot/spacemacs-supercollider.git
+[submodule "spacemacs/.emacs.d/private/godot-gdscript.el"]
+	path = spacemacs/.emacs.d/private/godot-gdscript.el
+	url = https://github.com/djiamnot/godot-gdscript.el
