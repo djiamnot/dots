@@ -7,3 +7,6 @@
 [submodule "spacemacs/.emacs.d/private/godot-gdscript.el"]
 	path = spacemacs/.emacs.d/private/godot-gdscript.el
 	url = https://github.com/djiamnot/godot-gdscript.el
+[submodule "spacemacs/.emacs.d/private/ob-sclang"]
+	path = spacemacs/.emacs.d/private/ob-sclang
+	url = https://github.com/djiamnot/ob-sclang
