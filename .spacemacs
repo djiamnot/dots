@@ -32,6 +32,8 @@ values."
    dotspacemacs-configuration-layers
    '(
      lua
+     csv
+     octave
      html
      javascript
      yaml
@@ -55,9 +57,13 @@ values."
      syntax-checking
      ;; version-control
      supercollider
+     xkcd
+     racket
+     spotify
      (c-c++ :variables
             c-c++-enable-clang-support t
             c-c++-enable-clang-format-on-save t)
+     slack
      themes-megapack
      )
    ;; List of additional packages that will be installed without being
@@ -69,6 +75,8 @@ values."
                                       focus
                                       exwm
                                       symon
+                                      osc
+                                      counsel
                                       alda-mode
                                       )
    ;; A list of packages that cannot be updated.
@@ -332,6 +340,18 @@ you should place your code here."
   (require 'org-crypt)
   (org-crypt-use-before-save-magic)
   (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+  ;; GPG key to use for encryption
+  ;; Either the Key ID or set to nil to use symmetric encryption.
+  (setq org-crypt-key "93E7644F9A652B61")
+  ;; (setq org-crypt-key "mis@artengine.ca")
+  (timeclock-mode-line-display)
+
+  (setq org-clock-in-resume t)
+  (setq org-clock-out-remove-zero-time-clocks t)
+  (setq org-clock-out-when-done t)
+  (setq org-clock-report-include-clocking-task t)
+  ;; markdown export
+  (eval-after-load "org" '(require 'ox-md nil t))
 
   ;; godot configuration
   (add-to-list 'load-path "~/.emacs.d/private/")
@@ -347,6 +367,10 @@ you should place your code here."
               (set-frame-parameter frame 'font "Inconsolata 10") ;; Cinema Display
             (set-frame-parameter frame 'font "Inconsolata 10")))))
 
+  (require 'flycheck-mypy)
+  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-to-list 'flycheck-disabled-checkers 'python-flake8)
+  (add-to-list 'flycheck-disabled-checkers 'python-pylint)
 
   ;; Fontify current frame
   (fontify-frame nil)
@@ -358,14 +382,35 @@ you should place your code here."
   (setq default-frame-alist '((font . "Inconsolata 10")))
 
 
-;;  (require 'w3m)
+  (require 'w3m)
+
+  ;; sclang for babel
+  (add-to-list 'load-path "~/src/_MiS/ob-sclang/")
+  (require 'ob-sclang)
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((sclang . t)))
 
   ;;  use emacs as window manager
   (require 'exwm)
   (require 'exwm-config)
   (exwm-config-default)
-  ;;(require 'exwm-systemtray)
-  ;;(exwm-systemtray-enable)
+  (exwm-enable)
+
+  (require 'exwm-systemtray)
+  (exwm-systemtray-enable)
+
+  (setq exwm-workspace-number 10)
+  (require 'exwm-randr)
+  (setq exwm-randr-workspace-output-plist '(0 "DP-2" 2 "DP-2" 4 "DP-2" 6 "DP-2" 8 "DP-2" 1 "DP-4" 3 "DP-4" 5 "DP-4" 7 "DP-4" 9 "DP-4" ))
+  (add-hook 'exwm-randr-screen-change-hook
+            (lambda ()
+              (start-process-shell-command
+               "xrandr" nil "xrandr --output DP-2 --left-of DP-4 --auto")))
+  (exwm-randr-enable)
+
+  (exwm-input-set-key (kbd "s-l") (lambda () (interactive) (shell-command "xscreensaver-command -lock")))
+  (exwm-input-set-key (kbd "s-d") (lambda () (interactive) (counsel-linux-app)))
+  (exwm-input-set-key (kbd "s-<return>") (lambda () (interactive) (shell-command "terminator")))
 
  ;;  (require 'exwm-randr)
  ;;  (setq exwm-randr-workspace-output-plist '(0 "DP-2" 2 "DP-2" 4 "DP-2" 6 "DP-2" 8 "DP-2" 1 "DP-4" 3 "DP-4" 5 "DP-4" 7
