@@ -152,8 +152,10 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(zenburn
+                         spacemacs-dark
+                         spacemacs-light
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -419,7 +421,7 @@ you should place your code here."
  ;; "DP-4" 9 "DP-4" ))
  ;;  (add-hook 'exwm-randr-screen-change-hook
  ;;            (lambda ()
- ;;              (start-process-shell-command
+ ;;              (s-tart-process-shell-command
  ;;               "xrandr" nil "xrandr --output DP-2 --left-of DP-4 --auto")))
  ;; (exwm-randr-enable)
 
@@ -442,7 +444,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+    ("7f89ec3c988c398b88f7304a75ed225eaac64efa8df3638c815acc563dfd3b55" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "de9fa4b3614611bed2fe75e105bd0d37542924b977299736f158dd4d7343c666" "39dd7106e6387e0c45dfce8ed44351078f6acd29a345d8b22e7b8e54ac25bac4" "987b709680284a5858d5fe7e4e428463a20dfabe0a6f2a6146b3b8c7c529f08b" "725a0ac226fc6a7372074c8924c18394448bb011916c05a87518ad4563738668" "e6ccd0cc810aa6458391e95e4874942875252cd0342efd5a193de92bfbb6416b" "392395ee6e6844aec5a76ca4f5c820b97119ddc5290f4e0f58b38c9748181e8d" "f2755fc8f0b4269cc45032715b8e11ea2d768aae47b8bb2a256ca1c8fdeb3628" "7feeed063855b06836e0262f77f5c6d3f415159a98a9676d549bfeb6c49637c4" "6124d0d4205ae5ab279b35ac6bc6a180fbb5ca594616e1e9a22097024c0a8a99" "fd1dd4d022ece05400c7bd1efc2ae5cca5cd64a53f3670da49d0c8f0ef41f4e3" "450f3382907de50be905ae8a242ecede05ea9b858a8ed3cc8d1fbdf2d57090af" "cd7ffd461946d2a644af8013d529870ea0761dccec33ac5c51a7aaeadec861c2" "ec5f697561eaf87b1d3b087dd28e61a2fc9860e4c862ea8e6b0b77bd4967d0ba" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(org-agenda-files
    (quote
@@ -541,4 +543,5 @@ Source: %u, %c, %x" :immediate-finish t :empty-lines 1 :clock-in t :clock-keep t
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil)))))
+ '(default ((t (:background nil))))
+ '(hl-line ((t (:background "dim gray" :foreground "dark gray" :underline nil :hight nil)))))
