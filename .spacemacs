@@ -412,8 +412,9 @@ you should place your code here."
                "xrandr" nil "xrandr --output DP-2 --left-of DP-4 --auto")))
   (exwm-randr-enable)
 
-  (exwm-input-set-key (kbd "s-l") (lambda () (interactive) (shell-command "xscreensaver-command -lock")))
   (exwm-input-set-key (kbd "s-d") (lambda () (interactive) (counsel-linux-app)))
+  (exwm-input-set-key (kbd "s-l") (lambda () (interactive) (shell-command "xscreensaver-command -lock")))
+  (exwm-input-set-key (kbd "s-p") (lambda () (interactive) (interactive exwm-workspace-switch-to-buffer)))
   (exwm-input-set-key (kbd "s-<return>") (lambda () (interactive) (shell-command "terminator")))
 
  ;;  (require 'exwm-randr)
@@ -544,4 +545,5 @@ Source: %u, %c, %x" :immediate-finish t :empty-lines 1 :clock-in t :clock-keep t
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:background nil))))
- '(hl-line ((t (:background "dim gray" :foreground "dark gray" :underline nil :hight nil)))))
+ '(hl-line ((t (:background "dim gray" :foreground nil :underline nil :hight nil))))
+ )
