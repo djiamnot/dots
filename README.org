@@ -1,9 +1,18 @@
 * dotfiles
 
-This is a collection of some of my dotfiles. 
+This is a collection of some of my dotfiles.
+** requirements
+#+BEGIN_SRC bash :export code :dir /sudo::
+sudo apt install emacs gtk-chtheme qt4-qtconfig sysstat acpi git automake build-essential gtk-doc-tools \
+    gobject-introspection xbacklight scrot kbdd xautolock pavucontrol xscreensaver \
+    maildir-utils mu4e # for email \
+#+END_SRC
 
-** i3
+- clone and install exwm-gnome-flashback
+- clone spacemacs
 
+
+** i3                                                              :noexport:
 Let's install some dependencies (if you're reading this in org-mode, hit C-c in the following block)
 
 #+BEGIN_SRC bash :export code :dir /sudo::
@@ -28,4 +37,3 @@ git clone https://github.com/acrisci/playerctl.git &&
 cd playerctl && ./autogen.sh &&
 make && sudo make install
 #+END_SRC
-
