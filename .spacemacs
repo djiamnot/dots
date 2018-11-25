@@ -356,6 +356,7 @@ you should place your code here."
   (setq org-clock-out-remove-zero-time-clocks t)
   (setq org-clock-out-when-done t)
   (setq org-clock-report-include-clocking-task t)
+  (require 'org-ref)
   ;; markdown export
   (eval-after-load "org" '(require 'ox-md nil t))
 
