@@ -83,6 +83,7 @@ values."
                                       counsel
                                       alda-mode
                                       org-ref
+                                      ranger
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
