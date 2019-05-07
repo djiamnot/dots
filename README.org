@@ -11,6 +11,14 @@ sudo apt install emacs gtk-chtheme qt4-qtconfig sysstat acpi git automake build-
 - clone and install exwm-gnome-flashback
 - clone spacemacs
 
+For use with ~elpy~ emacs package:
+#+begin_src bash
+python3 -m pip install --user jedi
+python3 -m pip install --user yapf
+python3 -m pip install --user black
+python3 -m pip install --user autopep8
+#+end_src
+
 
 ** i3                                                              :noexport:
 Let's install some dependencies (if you're reading this in org-mode, hit C-c in the following block)
