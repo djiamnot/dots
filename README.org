@@ -5,7 +5,9 @@ This is a collection of some of my dotfiles.
 #+BEGIN_SRC bash :export code :dir /sudo::
 sudo apt install emacs gtk-chtheme qt4-qtconfig sysstat acpi git automake build-essential gtk-doc-tools \
     gobject-introspection xbacklight scrot kbdd xautolock pavucontrol xscreensaver \
-    maildir-utils mu4e # for email \
+    graphviz maildir-utils mu4e # for email \
+    fonts-inconsolata texlive-fonts-extra
+
 #+END_SRC
 
 - clone and install exwm-gnome-flashback
