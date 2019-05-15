@@ -13,6 +13,7 @@ sudo apt install emacs gtk-chtheme qt4-qtconfig sysstat acpi git automake build-
 
 For use with ~elpy~ emacs package:
 #+begin_src bash
+pip3 install fale8
 python3 -m pip install --user jedi
 python3 -m pip install --user yapf
 python3 -m pip install --user black
