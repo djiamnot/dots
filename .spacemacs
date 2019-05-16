@@ -83,6 +83,8 @@ values."
                                       counsel
                                       alda-mode
                                       org-ref
+                                      ledger-mode
+                                      org-clock-csv
                                       notmuch
                                       ranger
                                       )
@@ -359,6 +361,7 @@ you should place your code here."
   (setq org-clock-out-remove-zero-time-clocks t)
   (setq org-clock-out-when-done t)
   (setq org-clock-report-include-clocking-task t)
+  (require 'org-ref)
   ;; markdown export
   (eval-after-load "org" '(require 'ox-md nil t))
 
@@ -410,11 +413,12 @@ you should place your code here."
 
   (setq exwm-workspace-number 10)
   (require 'exwm-randr)
-  (setq exwm-randr-workspace-output-plist '(0 "DP-2" 2 "DP-2" 4 "DP-2" 6 "DP-2" 8 "DP-2" 1 "DP-4" 3 "DP-4" 5 "DP-4" 7 "DP-4" 9 "DP-4" ))
+  ;;   (setq exwm-randr-workspace-output-plist '(0 "DP-2" 2 "DP-2" 4 "DP-2" 6 "DP-2" 8 "DP-2" 1 "DP-4" 3 "DP-4" 5 "DP-4" 7 "DP-4" 9 "DP-4" ))
+  (setq exwm-randr-workspace-output-plist '(0 "HDMI-1-2" 2 "DP-2" 4 "DP-2" 6 "DP-2" 8 "DP-2" 1 "HDMI-1-2" 3 "DP-4" 5 "DP-4" 7 "DP-4" 9 "DP-4" ))
   (add-hook 'exwm-randr-screen-change-hook
             (lambda ()
               (start-process-shell-command
-               "xrandr" nil "xrandr --output DP-2 --left-of DP-4 --auto")))
+               "xrandr" nil "xrandr --output HDMI-1-2 --left-of eDP-1-1 --auto")))
   (exwm-randr-enable)
 
   (exwm-input-set-key (kbd "s-d") (lambda () (interactive) (counsel-linux-app)))
@@ -455,7 +459,7 @@ you should place your code here."
  '(latex-run-command "pdflatex")
  '(org-agenda-files
    (quote
-    ("~/org/test.org" "~/org/MatraLab.org" "~/src/_art/MissinCommand/doc/MissinCommand.org" "~/org/condo.org" "~/org/remember.org" "~/org/NS.org" "~/org/Totem.org" "~/org/todo.org" "~/org/capture.org" "~/org/SAT.org")))
+    ("~/org/test.org" "~/org/MatraLab.org" "~/org/condo.org" "~/org/remember.org" "~/org/NS.org" "~/org/Totem.org" "~/org/todo.org" "~/org/capture.org" "~/org/SAT.org")))
  '(org-babel-load-languages
    (quote
     ((C . t)
@@ -464,7 +468,9 @@ you should place your code here."
      (dot . t)
      (ditaa . t)
      (lilypond . t)
-     (shell . t))))
+     (shell . t)
+     (ledger . t))))
+ '(org-babel-python-command "python3")
  '(org-bullets-bullet-list (quote ("*" "*" "*" "*")))
  '(org-capture-templates
    (quote

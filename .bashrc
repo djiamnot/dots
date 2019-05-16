@@ -161,3 +161,6 @@ source <(kubectl completion bash)
 
 alias em="emacsclient -c"
 . "/home/mis/.acme.sh/acme.sh.env"
+
+
+alias mperf=${HOME}/src/linux/linux-$(uname -r | sed 's/-.*//')/tools/perf/perf
