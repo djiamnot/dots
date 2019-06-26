@@ -29,7 +29,8 @@ Let's install some dependencies (if you're reading this in org-mode, hit C-c in 
 #+BEGIN_SRC bash :export code :dir /sudo::
 sudo apt install i3 i3-wm i3status i3blocks suckless-tools feh compton gtk-chtheme \
     qt4-qtconfig sysstat acpi git automake build-essential gtk-doc-tools \
-    gobject-introspection xbacklight scrot kbdd xautolock pavucontrol xscreensaver
+    gobject-introspection xbacklight scrot kbdd xautolock pavucontrol xscreensaver \
+    silversearcher-ag
 #+END_SRC
 
 Let's install xkblayout-state
