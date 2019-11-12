@@ -31,6 +31,10 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     graphviz
+     lua
+     csv
+     octave
      html
      javascript
      yaml
@@ -54,12 +58,36 @@ values."
      syntax-checking
      ;; version-control
      supercollider
+     xkcd
+     racket
+     spotify
+     (c-c++ :variables
+            c-c++-enable-clang-support t
+            c-c++-enable-clang-format-on-save t)
+     slack
+     themes-megapack
+     mu4e
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+                                      w3m
+                                      flycheck-mypy
+                                      org-jira
+                                      focus
+                                      exwm
+                                      symon
+                                      osc
+                                      counsel
+                                      alda-mode
+                                      org-ref
+                                      ledger-mode
+                                      org-clock-csv
+                                      notmuch
+                                      ranger
+                                      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -131,8 +159,10 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(zenburn
+                         spacemacs-dark
+                         spacemacs-light
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -320,6 +350,26 @@ you should place your code here."
   (epa-file-enable)
   (require 'org-crypt)
   (org-crypt-use-before-save-magic)
+  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+  ;; GPG key to use for encryption
+  ;; Either the Key ID or set to nil to use symmetric encryption.
+  (setq org-crypt-key "93E7644F9A652B61")
+  ;; (setq org-crypt-key "mis@artengine.ca")
+  (timeclock-mode-line-display)
+
+  (setq org-clock-in-resume t)
+  (setq org-clock-out-remove-zero-time-clocks t)
+  (setq org-clock-out-when-done t)
+  (setq org-clock-report-include-clocking-task t)
+  (require 'org-ref)
+  ;; markdown export
+  (eval-after-load "org" '(require 'ox-md nil t))
+
+  ;; godot configuration
+  (add-to-list 'load-path "~/.emacs.d/private/")
+  (load-file "~/.emacs.d/private/godot-gdscript.el/godot-gdscript.el")
+  (require 'godot-gdscript)
+  (add-to-list 'auto-mode-alist '("\\.gd\\'" . godot-gdscript-mode))
 
   (defun fontify-frame (frame)
     (interactive)
@@ -327,8 +377,12 @@ you should place your code here."
         (progn
           (if (> (x-display-pixel-width) 2000)
               (set-frame-parameter frame 'font "Inconsolata 10") ;; Cinema Display
-            (set-frame-parameter frame 'font "Inconsolata 8")))))
+            (set-frame-parameter frame 'font "Inconsolata 10")))))
 
+  (require 'flycheck-mypy)
+  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-to-list 'flycheck-disabled-checkers 'python-flake8)
+  (add-to-list 'flycheck-disabled-checkers 'python-pylint)
 
   ;; Fontify current frame
   (fontify-frame nil)
@@ -336,6 +390,59 @@ you should place your code here."
   ;; Fontify any future frames
   (push 'fontify-frame after-make-frame-functions)
 
+  ;;
+  (setq default-frame-alist '((font . "Inconsolata 10")))
+
+
+  (require 'w3m)
+
+  ;; sclang for babel
+  (add-to-list 'load-path "~/src/_MiS/ob-sclang/")
+  (require 'ob-sclang)
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((sclang . t)))
+
+  ;;  use emacs as window manager
+  (require 'exwm)
+  (require 'exwm-config)
+  (exwm-config-default)
+  (exwm-enable)
+
+  (require 'exwm-systemtray)
+  (exwm-systemtray-enable)
+
+  (setq exwm-workspace-number 10)
+  (require 'exwm-randr)
+  ;;   (setq exwm-randr-workspace-output-plist '(0 "DP-2" 2 "DP-2" 4 "DP-2" 6 "DP-2" 8 "DP-2" 1 "DP-4" 3 "DP-4" 5 "DP-4" 7 "DP-4" 9 "DP-4" ))
+  (setq exwm-randr-workspace-output-plist '(0 "HDMI-1-2" 2 "DP-2" 4 "DP-2" 6 "DP-2" 8 "DP-2" 1 "HDMI-1-2" 3 "DP-4" 5 "DP-4" 7 "DP-4" 9 "DP-4" ))
+  (add-hook 'exwm-randr-screen-change-hook
+            (lambda ()
+              (start-process-shell-command
+               "xrandr" nil "xrandr --output HDMI-1-2 --left-of eDP-1-1 --auto")))
+  (exwm-randr-enable)
+
+  (exwm-input-set-key (kbd "s-d") (lambda () (interactive) (counsel-linux-app)))
+  (exwm-input-set-key (kbd "s-l") (lambda () (interactive) (shell-command "xscreensaver-command -lock")))
+  (exwm-input-set-key (kbd "s-p") (lambda () (interactive) (interactive exwm-workspace-switch-to-buffer)))
+  (exwm-input-set-key (kbd "s-<return>") (lambda () (interactive) (shell-command "terminator")))
+
+ ;;  (require 'exwm-randr)
+ ;;  (setq exwm-randr-workspace-output-plist '(0 "DP-2" 2 "DP-2" 4 "DP-2" 6 "DP-2" 8 "DP-2" 1 "DP-4" 3 "DP-4" 5 "DP-4" 7
+ ;; "DP-4" 9 "DP-4" ))
+ ;;  (add-hook 'exwm-randr-screen-change-hook
+ ;;            (lambda ()
+ ;;              (s-tart-process-shell-command
+ ;;               "xrandr" nil "xrandr --output DP-2 --left-of DP-4 --auto")))
+ ;; (exwm-randr-enable)
+
+  (require 'symon)
+  (symon-mode)
+
+  (display-time)
+  (fancy-battery-mode)
+
+
+  (require 'alda-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -347,37 +454,41 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+    ("d74fe1508cff43708fa2f97c4bf58d19f0e002b2e0c92bf958bf483113b7d89d" "c93889826aa14d6bf4ff491780d0888d217e67e04209da823720ee50435e3bb1" "d9aa334b2011d57c8ce279e076d6884c951e82ebc347adbe8b7ac03c4b2f3d72" "abe5ee8858cd1fbe36304a8c3b2315d3e0a4ef7c8588fcc45d1c23eafb725bb6" "7824eb15543c5c57c232c131ca64c4f25bfeeeda6744f71b999787a9172fa74e" "8dce5b23232d0a490f16d62112d3abff6babeef86ae3853241a85856f9b0a6e7" "72085337718a3a9b4a7d8857079aa1144ea42d07a4a7696f86627e46ac52f50b" "dbade2e946597b9cda3e61978b5fcc14fa3afa2d3c4391d477bdaeff8f5638c5" "801a567c87755fe65d0484cb2bded31a4c5bb24fd1fe0ed11e6c02254017acb2" "f180f2aca4c8771b0f3966703502b692b3d1442ace58abd74f2b6796a86e3f9f" "1dd7b369ab51f00e91b6a990634017916e7bdeb64002b4dda0d7a618785725ac" "7f89ec3c988c398b88f7304a75ed225eaac64efa8df3638c815acc563dfd3b55" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "de9fa4b3614611bed2fe75e105bd0d37542924b977299736f158dd4d7343c666" "39dd7106e6387e0c45dfce8ed44351078f6acd29a345d8b22e7b8e54ac25bac4" "987b709680284a5858d5fe7e4e428463a20dfabe0a6f2a6146b3b8c7c529f08b" "725a0ac226fc6a7372074c8924c18394448bb011916c05a87518ad4563738668" "e6ccd0cc810aa6458391e95e4874942875252cd0342efd5a193de92bfbb6416b" "392395ee6e6844aec5a76ca4f5c820b97119ddc5290f4e0f58b38c9748181e8d" "f2755fc8f0b4269cc45032715b8e11ea2d768aae47b8bb2a256ca1c8fdeb3628" "7feeed063855b06836e0262f77f5c6d3f415159a98a9676d549bfeb6c49637c4" "6124d0d4205ae5ab279b35ac6bc6a180fbb5ca594616e1e9a22097024c0a8a99" "fd1dd4d022ece05400c7bd1efc2ae5cca5cd64a53f3670da49d0c8f0ef41f4e3" "450f3382907de50be905ae8a242ecede05ea9b858a8ed3cc8d1fbdf2d57090af" "cd7ffd461946d2a644af8013d529870ea0761dccec33ac5c51a7aaeadec861c2" "ec5f697561eaf87b1d3b087dd28e61a2fc9860e4c862ea8e6b0b77bd4967d0ba" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
  '(evil-want-Y-yank-to-eol nil)
+ '(latex-run-command "pdflatex")
  '(org-agenda-files
    (quote
-    ("~/Dropbox/org/condo.org" "~/Dropbox/org/remember.org" "~/Dropbox/org/NS.org" "~/Dropbox/org/Totem.org" "~/Dropbox/org/todo.org" "~/Dropbox/org/capture.org" "~/Dropbox/org/SAT.org")))
+    ("~/org/test.org" "~/org/MatraLab.org" "~/org/condo.org" "~/org/remember.org" "~/org/NS.org" "~/org/Totem.org" "~/org/todo.org" "~/org/capture.org" "~/org/SAT.org")))
  '(org-babel-load-languages
    (quote
-    ((python . t)
+    ((C . t)
+     (python . t)
      (emacs-lisp . t)
      (dot . t)
      (ditaa . t)
      (lilypond . t)
-     (shell . t))))
+     (shell . t)
+     (ledger . t))))
+ '(org-babel-python-command "python3")
  '(org-bullets-bullet-list (quote ("*" "*" "*" "*")))
  '(org-capture-templates
    (quote
     (("t" "Add to todo list" entry
-      (file "~/Dropbox/org/todo.org")
+      (file "~/org/todo.org")
       "* %^{Title} %^G
 Source: %u, %x" :jump-to-captured t :empty-lines 1)
      ("c" "Capture note" entry
-      (file "~/Dropbox/org/todo.org")
+      (file "~/org/todo.org")
       "* %^{Title}
 Source: %u, %x" :jump-to-captured t :empty-lines 1)
      ("b" "Save a bookmark" entry
-      (file "~/Dropbox/org/bookmarks.org")
+      (file "~/org/bookmarks.org")
       "* %^{Title} %^G
 
 Source: %u, %c, %x ")
      ("a" "Clocked entry" entry
-      (file+headline "~/Dropbox/org/todo.org" "")
+      (file+headline "~/org/todo.org" "")
       "* %^{Title}
 
 Source: %u, %c, %x" :immediate-finish t :empty-lines 1 :clock-in t :clock-keep t :clock-resume t))))
@@ -430,13 +541,20 @@ Source: %u, %c, %x" :immediate-finish t :empty-lines 1 :clock-in t :clock-keep t
       ("\\subsection{%s}" . "\\subsection*{%s}")
       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
       ("\\paragraph{%s}" . "\\paragraph*{%s}")
+      ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+     ("koma-article" "\\documentclass{scrartcl}"
+      ("\\section{%s}" . "\\section*{%s}")
+      ("\\subsection{%s}" . "\\subsection*{%s}")
+      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+      ("\\paragraph{%s}" . "\\paragraph*{%s}")
       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
  '(package-selected-packages
    (quote
-    (smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit async with-editor dash company-web web-completion-data company auto-complete web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode scheme-complete chicken-scheme web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode yaml-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic unfill mwim w3m zonokai-theme zenburn-theme zen-and-art-theme ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme restart-emacs request rainbow-delimiters railscasts-theme purple-haze-theme professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pastels-on-dark-theme paradox organic-green-theme org-projectile org-present org-pomodoro org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme neotree naquadah-theme mustang-theme move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme madhat2r-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gh-md gandalf-theme fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido flatui-theme flatland-theme firebelly-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme elisp-slime-nav dumb-jump dracula-theme django-theme define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-statistics column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (org-clock-csv ranger dired-ranger graphviz-dot-mode mu4e-maildirs-extension mu4e-alert org-ref flycheck-mypy org-jira counsel alda-mode org-plus-contrib symon focus exwm xelb white-sand-theme rebecca-theme org-mime exotica-theme lua-mode disaster autothemer company-c-headers cmake-mode clang-format smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit async with-editor dash company-web web-completion-data company auto-complete web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode scheme-complete chicken-scheme web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode yaml-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic unfill mwim w3m zonokai-theme zenburn-theme zen-and-art-theme ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme restart-emacs request rainbow-delimiters railscasts-theme purple-haze-theme professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pastels-on-dark-theme paradox organic-green-theme org-projectile org-present org-pomodoro org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme neotree naquadah-theme mustang-theme move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme madhat2r-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gh-md gandalf-theme fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido flatui-theme flatland-theme firebelly-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme elisp-slime-nav dumb-jump dracula-theme django-theme define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-statistics column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:background nil))))
+ '(hl-line ((t (:background "dim gray" :foreground nil :underline nil :hight nil)))))

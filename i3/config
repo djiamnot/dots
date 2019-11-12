@@ -33,6 +33,9 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
+# start emacsclient frame
+bindsym $mod+Shift+Return exec "emacsclient -c"
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -198,6 +201,10 @@ client.urgent           #FF5E00 #FF5E00 #fdf6e3 #FF5E00
 
 set $wallpaper ~/.config/i3/wallpaper.jpg
 
+# Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
 
 new_window normal 1
 new_float normal
@@ -239,15 +246,17 @@ bindsym $mod+F10 exec playerctl next && pkill -RTMIN+10 i3blocks
 #bindsym $mod+F8 exec playerctl previous && pkill -RTMIN+10 i3blocks
 
 # Screen brighness
-bindsym $mod+F6 exec --no-startup-id xbacklight -inc 10 && pkill -RTMIN+5 i3blocks
-bindsym $mod+F5 exec --no-startup-id xbacklight -dec 10 && pkill -RTMIN+5 i3blocks
+# bindsym $mod+F6 exec --no-startup-id xbacklight -inc 10 && pkill -RTMIN+5 i3blocks
+# bindsym $mod+F5 exec --no-startup-id xbacklight -dec 10 && pkill -RTMIN+5 i3blocks
+# bindsym $mod+F6 exec --no-startup-id "xrandr --output eDP-1-1 --brightness 0.7" && pkill -RTMIN+5 i3blocks
 
 # touchpad toggle
 bindsym XF86TouchpadToggle exec ${HOME}/.config/i3/toggle_touchpad && pkill -RTMIN+30 i3blocks
 # bindsym XF86TouchpadToggle exec $(if test $(synclient -l | grep TouchpadOff | awk -F '=' '{print $2}') -eq 0; then synclient TouchpadOff=1; else synclient TouchpadOff=0; fi)
 
 # Screenshot
-bindsym $mod+p exec --no-startup-id scrot '%Y-%m-%d_%H-%M-%S.png' -u -e 'mv $f ~/Pictures/'
+# bindsym $mod+p exec --no-startup-id scrot '%Y-%m-%d_%H-%M-%S.png' -u -e 'mv $f ~/Pictures/'
+bindsym $mod+p exec --no-startup-id "gnome-screenshot --interactive"
 # Keyboard layout change
 # bindsym $mod+Tab exec --no-startup-id ${HOME}/.config/i3/xkblayout-state set +1 && pkill -RTMIN+1 i3blocks
 bindsym $mod+Tab exec --no-startup-id dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.next_layout && sleep 0.1 && pkill -RTMIN+1 i3blocks
@@ -287,7 +296,7 @@ exec --no-startup-id "nm-applet"
 # Dropbox
 exec --no-startup-id "dropbox start"
 # Compton
-exec --no-startup-id "compton --config ~/.config/compton.conf -b"
+# exec --no-startup-id "compton --config ~/.config/compton.conf -b"
 # blueman
 # exec --no-startup-id "blueman-applet"
 # Disable Nautilus and Nemo desktop
@@ -307,7 +316,8 @@ exec "ssh-add"
 # some other things
 
 exec --no-startup-id slack
-exec --no-startup-id emacs
+exec --no-startup-id "emacs --daemon && notify-send 'emacs daemon started'"
 exec --no-startup-id qjackctl
 # exec --no-startup-id hdspmixer
 exec --no-startup-id "syncthing -no-browser"
+exec --no-startup-id "megasync"

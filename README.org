@@ -1,15 +1,36 @@
 * dotfiles
 
-This is a collection of some of my dotfiles. 
+This is a collection of some of my dotfiles.
+** requirements
+#+BEGIN_SRC bash :export code :dir /sudo::
+sudo apt install emacs gtk-chtheme qt4-qtconfig sysstat acpi git automake build-essential gtk-doc-tools \
+    gobject-introspection xbacklight scrot kbdd xautolock pavucontrol xscreensaver \
+    graphviz maildir-utils mu4e # for email \
+    fonts-inconsolata texlive-fonts-extra
 
-** i3
+#+END_SRC
 
+- clone and install exwm-gnome-flashback
+- clone spacemacs
+
+For use with ~elpy~ emacs package:
+#+begin_src bash
+pip3 install fale8
+python3 -m pip install --user jedi
+python3 -m pip install --user yapf
+python3 -m pip install --user black
+python3 -m pip install --user autopep8
+#+end_src
+
+
+** i3                                                              :noexport:
 Let's install some dependencies (if you're reading this in org-mode, hit C-c in the following block)
 
 #+BEGIN_SRC bash :export code :dir /sudo::
 sudo apt install i3 i3-wm i3status i3blocks suckless-tools feh compton gtk-chtheme \
     qt4-qtconfig sysstat acpi git automake build-essential gtk-doc-tools \
-    gobject-introspection xbacklight scrot kbdd xautolock pavucontrol xscreensaver
+    gobject-introspection xbacklight scrot kbdd xautolock pavucontrol xscreensaver \
+    silversearcher-ag
 #+END_SRC
 
 Let's install xkblayout-state
@@ -28,4 +49,3 @@ git clone https://github.com/acrisci/playerctl.git &&
 cd playerctl && ./autogen.sh &&
 make && sudo make install
 #+END_SRC
-
