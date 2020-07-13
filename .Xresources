@@ -1,3 +1,7 @@
+! run:
+! xrdb -merge ~/.Xresources
+! after modifying this file in order to have changes applied without logging out
+! and back in
 ! ------------------------------------------------------------------------------
 ! ROFI Color theme
 ! ------------------------------------------------------------------------------
@@ -7,3 +11,50 @@ rofi.color-window: #282A2D, #BC6EC5, #BC6EC5
 rofi.color-normal: #282A2D, #ffffff, #474747, #0083a4, #ffffff
 rofi.color-active: #282A2D, #0083a4, #393939, #0083a4, #ffffff
 rofi.color-urgent: #282A2D, #f3843d, #393939, #0083a4, #ffc39c
+
+
+! Dracula Xresources palette
+! xterm*foreground: rgb:F8/F8/F2
+! xterm*background: rgb:28/2A/36
+! xterm*color0:     rgb:00/00/00
+! xterm*color8:     rgb:4D/4D/4D
+! xterm*color1:     rgb:FF/55/55
+! xterm*color9:     rgb:FF/6E/67
+! xterm*color2:     rgb:50/FA/7B
+! xterm*color10:    rgb:5A/F7/8E
+! xterm*color3:     rgb:F1/FA/8C
+! xterm*color11:    rgb:F4/F9/9D
+! xterm*color4:     rgb:BD/93/F9
+! xterm*color12:    rgb:CA/A9/FA
+! xterm*color5:     rgb:FF/79/C6
+! xterm*color13:    rgb:FF/92/D0
+! xterm*color6:     rgb:8B/E9/FD
+! xterm*color14:    rgb:9A/ED/FE
+! xterm*color7:     rgb:BF/BF/BF
+! xterm*color15:    rgb:E6/E6/E6
+
+xterm*faceName: Hack
+! xterm*faceName: DejaVu Sans Mono Book
+! xterm*faceName: Inconsolata
+xterm*faceSize: 9
+
+xterm*foreground: rgb:BC/BC/BC
+xterm*background: rgb:26/26/26
+xterm*color0:     rgb:1C/1C/1C
+xterm*color8:     rgb:44/44/44
+xterm*color1:     rgb:AF/5F/5F
+xterm*color9:     rgb:FF/87/00
+xterm*color2:     rgb:5F/87/5F
+xterm*color10:    rgb:87/AF/87
+xterm*color3:     rgb:87/87/5F
+xterm*color11:    rgb:FF/FF/AF
+xterm*color4:     rgb:5F/87/AF
+xterm*color12:    rgb:8F/AF/D7
+xterm*color5:     rgb:5F/5F/87
+xterm*color13:    rgb:87/87/AF
+xterm*color6:     rgb:5F/87/87
+xterm*color14:    rgb:5F/AF/AF
+xterm*color7:     rgb:6C/6C/6C
+xterm*color15:    rgb:FF/FF/FF
+
+XTerm.vt100.metaSendsEscape: true

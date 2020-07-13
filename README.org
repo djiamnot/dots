@@ -28,9 +28,17 @@ Adjust screen tint according to time of day and location
 sudo apt install redshift-gtk
 #+end_src
 
+A decent GTK theme
 #+begin_src bash
 cd ~/src/_externs && git clone https://github.com/ddnexus/equilux-theme
 cd equilux-theme && sudo ./install.sh
+#+end_src
+
+** Hy
+#+begin_src bash :dir /sudo::
+sudo pip3 install git+https://github.com/ekaschalk/jedhy.git
+sudo pip3 install git+https://github.com/Calysto/calysto_hy.git
+sudo python3 -m calysto_hy install
 #+end_src
 
 ** i3                                                              :noexport:
