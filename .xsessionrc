@@ -1,0 +1,28 @@
+# -*- mode: shell-script -*-
+
+# HOSTNAME=$(hostname)
+
+# if [ -r "$HOME/.xkb/keymap/$HOSTNAME" ]; then
+#     xkbcomp -w0 -I$HOME/.xkb $HOME/.xkb/keymap/$HOSTNAME $DISPLAY
+# fi
+
+# COMPTON="$(which compton)"
+# if [ -f "$COMPTON" && -x "COMPTON" ]; then
+#     $COMPTON -b --config ${HOME}/.compton.conf
+# fi
+
+# gnome-settings-daemon &
+setxkbmap -layout pl,ca\(multix\) -option ctrl:nocaps -option grp:shifts_toggle
+xscreensaver -no-splash &
+redshift-gtk &
+megasync &
+syncthing --no-browser &
+
+# xss-lock -- xscreensaver-command -lock &
+
+# XWRITS="$(which xwrits)"
+# if [ -f "$XWRITS" && -x "$XWRITS" ]; then
+#     $XWRITS typetime=60 breaktime=5 &
+# fi
+
+STARTUP="/usr/bin/emacs -f exwm-enable"
