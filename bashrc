@@ -111,3 +111,5 @@ export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3/dist-packages
 
 # set terminal to 256 colors so my emacs looks nicer
 export TERM=xterm
+
+PATH=~/bin:~/.local/bin:$PATH

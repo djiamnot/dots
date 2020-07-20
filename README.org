@@ -3,10 +3,10 @@
 This is a collection of some of my dotfiles.
 ** requirements
 #+BEGIN_SRC bash :export code :dir /sudo::
-sudo apt install emacs gtk-chtheme qt4-qtconfig sysstat acpi git automake build-essential gtk-doc-tools \
+sudo apt install emacs gtk-chtheme sysstat acpi git automake build-essential gtk-doc-tools \
     gobject-introspection xbacklight scrot kbdd xautolock pavucontrol xscreensaver \
     graphviz maildir-utils mu4e # for email \
-    fonts-inconsolata texlive-fonts-extra
+    fonts-inconsolata texlive-fonts-extra w3m
 
 #+END_SRC
 
