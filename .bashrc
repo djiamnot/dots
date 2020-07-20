@@ -73,10 +73,10 @@ if [ "$TERM" != "dumb" ]; then
     #alias vdir='ls --color=auto --format=long'
 fi
 alias svn-b='svn-buildpackage -rfakeroot --svn-ignore-new  -uc -us'
-alias git-b="git-buildpackage --git-export-dir=../build-area -us -uc"
-#alias git-a="git archive --format=tar --prefix=spinic-0.1.2/ 0.1.2^{tree} | gzip > ../spinic-0.1.2.tar.gz"
-alias git-bs="git-buildpackage --git-export-dir=../build-area -S -sa"
-alias git-t="git-buildpackage --git-tag-only"
+alias git-b="git-buildpackage --git-export-dir=../build-area -us -uc" 
+#alias git-a="git archive --format=tar --prefix=spinic-0.1.2/ 0.1.2^{tree} | gzip > ../spinic-0.1.2.tar.gz" 
+alias git-bs="git-buildpackage --git-export-dir=../build-area -S -sa" 
+alias git-t="git-buildpackage --git-tag-only" 
 alias make='make -j 6'
 alias demo='totem "http://gaia.local:8084/sdp?rtpsession=defaultrtp&destination=zeus"'
 alias nosleep="xset -dpms; xset s off; echo NO SLEEP:  xset -dpms and xset s off"
@@ -111,23 +111,5 @@ export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3/dist-packages
 
 # set terminal to 256 colors so my emacs looks nicer
 export TERM=xterm
-export VISUAL=emacsclient
-export EDITOR="$VISUAL"
 
-export _JAVA_AWT_WM_NONREPARENTING=1
-
-## >>> conda initialize >>>
-## !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('/home/mis/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    eval "$__conda_setup"
-#else
-#    if [ -f "/home/mis/anaconda3/etc/profile.d/conda.sh" ]; then
-#        . "/home/mis/anaconda3/etc/profile.d/conda.sh"
-#    else
-#        export PATH="/home/mis/anaconda3/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
-## <<< conda initialize <<<
-
+PATH=~/bin:~/.local/bin:$PATH
